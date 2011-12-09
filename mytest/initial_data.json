@@ -1,0 +1,16 @@
+[
+   {
+      "pk": 1, 
+      "model": "persons.person", 
+      "fields": {
+         "bio": "frgrgr", 
+         "first_name": "Tanya", 
+         "last_name": "Kuznetsova", 
+         "other_contacts": "", 
+         "skype": "fibio", 
+         "birth_date": "2011-12-09", 
+         "mail": "poshta@ukr.net", 
+         "jabber": "fibio.tany@gmail.com"
+      }
+   }
+]

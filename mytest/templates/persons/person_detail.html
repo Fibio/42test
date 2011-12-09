@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Contacts page{% endblock %}
+{% block caption %}<h1>42 Coffee Cups Test Assignment</h1>{% endblock %}
+{% block content %}
+		<div class=columns>
+		<div>
+			{% for field in form %}
+				<p><label>{{ field.label }} {{ field }}</label></p>
+				{% if forloop.counter = 4 %} </div><div>{% endif %}
+			{% endfor %}
+		</div>
+		</div>
+{% endblock %}
+

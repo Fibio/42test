@@ -1,0 +1,17 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {% block css %}
+    <link rel="stylesheet" type="text/css" href="media/css/style.css" />
+    {% endblock %}
+    {% block scripts %}
+    {% endblock %}
+</head>
+<body>
+    {% block caption %}{% endblock %}
+    {% block content %}{% endblock %}
+    {% block footer %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,8 @@
+# environment #
+env/*
+
+# compiled source #
+*.pyc
+
+# databases #
+*.sqlite
