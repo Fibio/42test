@@ -6,3 +6,7 @@ run:
 .PHONY: test_persons
 test_persons:
 	python mytest/manage.py test persons
+
+.PHONY: test
+test:
+	python mytest/manage.py test
