@@ -3,7 +3,7 @@ import os
 
 
 ROOT_PATH = os.path.dirname(__file__) + '/'
-SITE_PATH = os.path.normpath(os.path.join(ROOT_PATH, '../')) + '/'
+SITE_PATH = os.path.normpath(os.path.join(ROOT_PATH, '../'))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -50,7 +50,7 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = SITE_PATH + 'media'
+MEDIA_ROOT = os.path.join(SITE_PATH, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -108,7 +108,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'mytest.urls'
 
 TEMPLATE_DIRS = (
-    ROOT_PATH + 'templates',
+    os.path.join(ROOT_PATH, 'templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.

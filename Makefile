@@ -1,5 +1,6 @@
 .PHONY: run
 run:
+	python mytest/manage.py syncdb
 	python mytest/manage.py runserver 0.0.0.0:8000
 
 .PHONY: test_persons
