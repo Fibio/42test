@@ -3,8 +3,7 @@
 {% block title %}Contacts page{% endblock %}
 {% block caption %}<h1>42 Coffee Cups Test Assignment</h1>{% endblock %}
 {% block content %}
-
-       <div id = "main" class="columns">
+	<div id = "main" class="columns">
 		<div>
 			{% for field in form %}
 				<p><label>{{ field.label }} {{ field }}</label></p>
@@ -13,11 +12,13 @@
 		        {% endif %}
 			{% endfor %}
 		</div>
-   </div>
-    {% endblock %}
-     {% block footer %}
-       <div id = "footer">
+ 	</div>
+{% endblock %}
+{% block footer %}
+	<div id = "footer">
         <hr>
-        <a href="{% url requests %}">requests</a>.
-        </div>
+        <a href="{% url requests %}">requests</a>.<br>
+        <p>Debug options in this project: {{ settings.DEBUG }}</p>
+        <p>This project root: {{ settings.ROOT_URLCONF }}</p>
+	</div>
 {% endblock %}
