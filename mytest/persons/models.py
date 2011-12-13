@@ -17,6 +17,7 @@ class Person(models.Model):
     class Meta:
         db_table = 'person'
 
+
 class RequestInfo(models.Model):
     user = models.CharField(max_length=50)
     time = models.DateTimeField(auto_now=True)
