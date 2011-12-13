@@ -16,3 +16,21 @@ class Person(models.Model):
 
     class Meta:
         db_table = 'person'
+
+class RequestInfo(models.Model):
+    user = models.CharField(max_length=50)
+    time = models.DateTimeField(auto_now=True)
+    request_method = models.CharField(max_length=10)
+    server_protocol = models.CharField(max_length=10)
+    http_connection = models.CharField(max_length=20)
+    http_user_agent = models.CharField(max_length=50)
+    lang = models.CharField(max_length=20)
+    http_accept_charset = models.CharField(max_length=50)
+    http_cookie = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return u'Request from %s method - %s, at %s' % (self.user, self.request_method, self.time)
+
+    class Meta:
+        db_table = 'request_info'
+        verbose_name_plural = 'request_information'

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}The first http request:{% endblock %}
+{% block caption %}<h1>42 Coffee Cups Test Assignment</h1>{% endblock %}
+{% block content %}
+			{% for request in requests %}
+				on {{ request.time }} request from {{ request.user }} request method {{ request.request_method }}<br>
+			{% endfor %}
+{% endblock %}

@@ -1,12 +1,10 @@
 from django.utils import unittest
 from django.test.client import Client
-from models import Person
+from models import Person, RequestInfo
 
 
 class PersonTestCase(unittest.TestCase):
-
     """ Test for main page about person information"""
-
     def setUp(self):
         self.client = Client()
         p = Person()
@@ -25,3 +23,16 @@ class PersonTestCase(unittest.TestCase):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(bool(response.content.find('john_doe')), True)
+
+class RequestInfoTestCase(unittest.TestCase):
+    """ Test for main page about person information"""
+    def setUp(self):
+        self.client = Client()
+
+    def test_request_content(self):
+        response = self.client.get('/request/')
+        self.assertEqual(response.status_code, 200)
+        for i in range(15):
+            response = self.client.get('/request/')
+        requests = RequestInfo.objects.all().order_by('time')[:10]
+        self.assertEqual(list(response.context['requests']), list(requests))

@@ -2,8 +2,8 @@
 import os
 
 
-ROOT_PATH = os.path.dirname(__file__) + '/'
-SITE_PATH = os.path.normpath(os.path.join(ROOT_PATH, '../'))
+SITE_ROOT = os.path.dirname(__file__) 
+SITE_PATH = os.path.realpath(SITE_ROOT)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -77,6 +77,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    ('css', os.path.join(MEDIA_ROOT, 'css')),
 )
 
 # List of finder classes that know how to find static files in
@@ -98,6 +99,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'mytest.persons.middleware.RequestInfoLog',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -108,7 +110,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'mytest.urls'
 
 TEMPLATE_DIRS = (
-    os.path.join(ROOT_PATH, 'templates'),
+    os.path.join(SITE_ROOT, 'templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
