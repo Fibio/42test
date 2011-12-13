@@ -4,9 +4,7 @@ from models import Person, RequestInfo
 
 
 class PersonTestCase(unittest.TestCase):
-
     """ Test for main page about person information"""
-
     def setUp(self):
         self.client = Client()
         p = Person()
@@ -26,11 +24,8 @@ class PersonTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(bool(response.content.find('john_doe')), True)
 
-
 class RequestInfoTestCase(unittest.TestCase):
-
     """ Test for main page about person information"""
-
     def setUp(self):
         self.client = Client()
 

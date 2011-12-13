@@ -1,7 +1,18 @@
+#main {
+	width: 800px;
+	clear:both;
+	}
+
+#footer {
+	width: 800px;
+	clear:both;
+	}
+
 label {
 	display: block;
 	margin: 0 -5 0 20px;
 	}
+
 .columns div{
 	float:left; 
 	width:320px; 

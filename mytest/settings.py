@@ -2,7 +2,7 @@
 import os
 
 
-SITE_ROOT = os.path.dirname(__file__)
+SITE_ROOT = os.path.dirname(__file__) 
 SITE_PATH = os.path.realpath(SITE_ROOT)
 
 DEBUG = True
