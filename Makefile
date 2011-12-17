@@ -10,3 +10,6 @@ test_persons:
 .PHONY: test
 test:
 	python mytest/manage.py test
+
+fixtures:
+	python mytest/manage.py dumpdata persons --indent 3 > initial_data.json
