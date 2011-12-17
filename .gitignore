@@ -6,3 +6,6 @@ env/*
 
 # databases #
 *.sqlite
+
+# db patch #
+sql/*

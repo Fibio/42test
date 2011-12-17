@@ -1,11 +1,34 @@
+body {
+	background:#E5E5E5;
+	}
 #main {
 	width: 800px;
 	clear: both;
+	background-color:white; 
+	margin: 0px auto;
+	}
+
+#main h1 {
+	text-align: center;
 	}
 
 #footer {
-	width: 800px;
-	clear: both;
+    clear: both;
+	}
+
+#img {
+	width: 340px;
+	height: 385px;
+	float: none;
+	background: #E5E5E5;
+	display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+	}
+
+#login {
+    text-align: right;
+	margin: 0 25px;
 	}
 
 label {
@@ -15,6 +38,7 @@ label {
 
 .columns div{
 	float: left; 
-	width: 320px; 
-	padding: 0 10px; 
+	width: 355px; 
+	padding: 0 10px;
+	margin: 10px 7px;
 	}

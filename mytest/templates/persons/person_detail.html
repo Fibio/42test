@@ -2,20 +2,47 @@
 
 {% block title %}Contacts page{% endblock %}
 {% block caption %}<h1>42 Coffee Cups Test Assignment</h1>{% endblock %}
+{% block login %}
+      <div id="login">
+        {% if user.is_authenticated %}
+            {{ user.username }} you can <a href="{% url auth_logout %}">logout</a>
+            {% if not edit %} or <a href="{% url edit %}">edit profile</a>{% endif %}
+        {% else %}
+            <a href="{% url auth_login %}">Login</a>
+        {% endif %}
+      </div>
+{% endblock %}
 {% block content %}
-	<div id = "main" class="columns">
+    {% if edit %}
+        <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+    {% endif %}
+	<div class="columns">
 		<div>
 			{% for field in form %}
-				<p><label>{{ field.label }} {{ field }}</label></p>
+                {% if field.label = 'Photo' %}
+				    <label>{{ field.label }}: <div id='img'>{{ field }}</div></label>
+			    {% else %}
+				    <p><label>{{ field.label }}: {{ field }}</label></p>
+				{% endif %}
+
+				{% if field.errors %}
+                <font color="red">{{ field.errors }}</font>
+                {% endif %}
 				{% if forloop.counter = 4 %} 
 		            </div><div>
 		        {% endif %}
 			{% endfor %}
 		</div>
  	</div>
+ 	{% if edit %}
+        <input type="submit" name="submit" value="Save" id="submit">
+        <a href="{% url home %}">Cancel</a>
+        </form>
+    {% endif %}
 {% endblock %}
 {% block footer %}
-	<div id = "footer">
+	<div id="footer">
         <hr>
         <a href="{% url requests %}">requests</a>.<br>
         <p>Debug options in this project: {{ settings.DEBUG }}</p>

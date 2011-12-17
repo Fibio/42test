@@ -5,7 +5,7 @@ class Person(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     birth_date = models.DateField()
-    photo = models.ImageField(upload_to="person_images", blank=True)
+    photo = models.ImageField(upload_to="person_images/", blank=True)
     mail = models.EmailField(blank=True)
     jabber = models.EmailField(blank=True)
     skype = models.CharField(max_length=20, blank=True )
