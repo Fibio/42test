@@ -66,10 +66,10 @@ class LoginEditTestCase(TestCase):
 
     def test_login_system(self):
         self.client.logout()
-        response = self.client.get(reverse('edit', args=('edit',)))
+        response = self.client.get(reverse('edit'))
         self.assertEqual(response.status_code, 302)
         self.client.login(username=self.username, password=self.pw)
-        response = self.client.get(reverse('edit', args=('edit',)))
+        response = self.client.get(reverse('edit'))
         self.assertEqual(response.status_code, 200)
 
     def test_change_info(self):
@@ -80,7 +80,7 @@ class LoginEditTestCase(TestCase):
                           'bio': 'some bio',
                           'email': 'jhon_doe@gmail.com',
                           'skype': 'john_doe'}
-        self.client.post(reverse('edit', args=('edit',)), self.post_data)
+        self.client.post(reverse('edit'), self.post_data)
         person = Person.objects.get(pk=1)
         self.assertEqual(person.first_name, 'Jhon')
         self.assertEqual(person.last_name, 'Doe')
