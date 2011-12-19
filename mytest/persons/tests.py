@@ -72,6 +72,9 @@ class LoginEditTestCase(TestCase):
         self.assertTrue(self.client.login(username=self.username, password=self.pw))
         self.post_data = {'first_name': 'Jhon',
                           'last_name': 'Doe',
+                          'birth_date': '2011-11-11',
+                          'bio': 'some bio',
+                          'email': 'jhon_doe@gmail.com',
                           'skype': 'john_doe'}
         self.client.post(reverse('edit'), self.post_data)
         person = Person.objects.get(pk=1)
