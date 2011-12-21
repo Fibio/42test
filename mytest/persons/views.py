@@ -1,7 +1,11 @@
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404 #, redirect
 from django.views.generic.simple import direct_to_template
-from django.core.urlresolvers import reverse
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from django.utils import simplejson
+#from django.core.urlresolvers import reverse
 from PIL import Image
+#from mytest.utils import JsonResponse
 from mytest.persons.models import Person, RequestInfo
 from mytest.persons.forms import PersonForm
 
@@ -36,9 +40,20 @@ def person_detail(request, edit=False, person_id=1):
     img_size = resize(instance.photo)
     form = PersonForm(request.POST or None, request.FILES or None, instance=instance,
                       edit=edit, img_size=img_size)
-    if request.method == 'POST' and form.is_valid():
-        form.save()
-        return redirect(request.META['PATH_INFO'], {'form': form, 'edit': edit})
+    print request.is_ajax()
+    print '00000', form.data
+    if request.method == 'POST':# and request.is_ajax():
+        print '111', form.data
+        if form.is_valid():
+            form.save()
+            print '2222222222', form.data
+            status = 'Ok'
+        else:
+            status = 'Fail'
+        response_text = render_to_string("persons/person_form.html", {'form': form})
+        res = {'edit': edit, 'status': status, 'response_text': response_text}
+        return HttpResponse(simplejson.dumps(res), mimetype='application/javascript')
+
     return direct_to_template(request, 'persons/person_detail.html', {'form': form, 'edit': edit})
 
 

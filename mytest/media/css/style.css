@@ -31,14 +31,28 @@ body {
 	margin: 0 25px;
 	}
 
+#results {
+	color: red;
+	}
+
 label {
 	display: block;
 	margin: 0 -5 0 20px;
+	font-size: 13px;
 	}
 
 .columns div{
 	float: left; 
-	width: 355px; 
+	width: 366px; 
 	padding: 0 10px;
 	margin: 10px 7px;
+	}
+
+a:link, a:visited {
+    color: #5b80b2;
+    text-decoration: none;
+	}
+
+.datetimeshortcuts a {
+	font-size: 11px;
 	}

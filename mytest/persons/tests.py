@@ -31,10 +31,6 @@ class ProcessorsTestCase(TestCase):
         response = self.client.get(reverse('home'))
         self.assertEquals(response.context['settings'], settings)
 
-    def test_all_settings(self):
-        response = self.client.get(reverse('home'))
-        self.assertEquals(response.context['settings'], settings)
-
 
 class RequestInfoTestCase(TestCase):
 

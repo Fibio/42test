@@ -2,6 +2,7 @@ from django import forms
 from mytest.persons.models import Person
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
+from django.conf import settings
 
 
 class ImageViewWidget(forms.widgets.FileInput):
@@ -44,6 +45,21 @@ class ImageViewWidget(forms.widgets.FileInput):
         return upload
 
 
+class CalendarWidget(forms.TextInput):
+
+    """ Widget for date imput """
+
+    class Media:
+        js = ('/admin/jsi18n/',
+                  settings.MEDIA_URL + 'js/calendar/core.js',
+                  settings.MEDIA_URL + "js/calendar/calendar.js",
+                  settings.MEDIA_URL + "js/calendar/DateTimeShortcuts.js")
+        css = {'all': (
+                settings.MEDIA_URL + 'css/widgets.css',)}
+            
+    def __init__(self, attrs={}):
+            super(CalendarWidget, self).__init__(attrs={'class': 'vDateField'})
+
 class PersonForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -51,6 +67,16 @@ class PersonForm(forms.ModelForm):
         img_size = kwargs.pop('img_size', None)
         super(PersonForm, self).__init__(*args, **kwargs)
         self.fields['photo'].widget = ImageViewWidget(edit=edit, img_size=img_size)
+        if edit:
+            self.fields['birth_date'].widget = CalendarWidget(attrs={
+                                                    'class': 'vDateField',
+                                                    'size': '100'})
+
+    class Media:
+        js = (settings.MEDIA_URL + "js/jquery-1.7.1.min.js",
+              settings.MEDIA_URL + "js/jquery.form.js",
+              settings.MEDIA_URL + "js/save_form.js"
+              )
 
     class Meta:
         model = Person

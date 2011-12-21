@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^edit/$', login_required(person_detail), {'edit': True}, name="edit" ),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'persons/login.html'}, name='auth_login'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', name='auth_logout'),
+    url(r'^admin/jsi18n/', 'django.views.i18n.javascript_catalog')
 )
