@@ -41,12 +41,12 @@ def person_detail(request, edit=False, person_id=1):
     form = PersonForm(request.POST or None, request.FILES or None, instance=instance,
                       edit=edit, img_size=img_size)
     print request.is_ajax()
-    print '00000', form.data
+    print '0000000000000000000000*', form.data
     if request.method == 'POST':# and request.is_ajax():
-        print '111', form.data
+        print '111111111111111111111111111', form.data
         if form.is_valid():
             form.save()
-            print '2222222222', form.data
+            print '2222222222222222222', form.data
             status = 'Ok'
         else:
             status = 'Fail'
