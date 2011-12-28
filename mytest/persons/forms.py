@@ -29,6 +29,7 @@ class ImageViewWidget(forms.widgets.FileInput):
             attrs.update({'src': value.url})
             if self.img_size:
                 attrs.update({'width': self.img_size[0], 'height': self.img_size[1]})
+            attrs['id'] = attrs.pop('id', 'id') + '_img'
             subst['img'] = u'<img %s>' % forms.util.flatatt(attrs)
             if not self.is_required and self.edit:
                 subst['clear'] = u'<br>Delete %s' % forms.widgets.CheckboxInput().render(name,
@@ -56,9 +57,10 @@ class CalendarWidget(forms.TextInput):
                   settings.MEDIA_URL + "js/calendar/DateTimeShortcuts.js")
         css = {'all': (
                 settings.MEDIA_URL + 'css/widgets.css',)}
-            
+
     def __init__(self, attrs={}):
             super(CalendarWidget, self).__init__(attrs={'class': 'vDateField'})
+
 
 class PersonForm(forms.ModelForm):
 

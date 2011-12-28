@@ -1,58 +1,43 @@
 $(document).ready(function(){
     var options = {
         dataType: 'json',
-        //method: 'post',
-        //target: '#contactForm',
-        //iframeTarget: '#img',
-        semantic: true,
-        //iframe: true,
         beforeSubmit:  CheckInfo,
-        success: Submited,
+        success: Submited
     };
-    //alert('START');
     $('#contactForm').ajaxForm(options);
-    //alert('END!!!!!!!!!!!');
-});
-$(document).ajaxStart(function() {
-	alert('start ajax');
-	$('#contactForm input').attr("disabled", "disabled");
-	$('#contactForm textarea').attr("disabled", "disabled");
-	//$('#results').html("Sending form data...");
 
 });
+$(document).ajaxStart(function() {
+	$('#contactForm input').attr("disabled", "disabled");
+	$('#contactForm textarea').attr("disabled", "disabled");
+});
 $(document).ajaxStop(function() {
-	alert('stop ajax');
 	$('#contactForm input').removeAttr("disabled");
 	$('#contactForm textarea').removeAttr("disabled");
-	//$('#results').html("URA!!!!!!!!!!!!!!!!!!!!!!!!!!");
 });
 function CheckInfo(formData, jqForm, options){
-	var queryString = $.param(formData);
-	alert('id\n\n' + formData.('#id_photo'));
-    alert('About to submit: \n\n' + queryString); 
-    return true; 
+	$('.errorlist').remove();
+	$('#results').css({color: "red"});
 };
 
 function Submited(response, statusText, xhr, $form){
-            alert('success');
-            var queryString1 = $.param(response); 
-            alert(queryString1);
-            /*alert('status: ' + statusText + '\n\nresponseText: \n' + response + 
-        '\n\nThe output div should have already been updated with the responseText.');
-        $('#results').html('status: ' + statusText + '\n\nresponseText: \n' + response + 
-        '\n\nThe output div should have already been updated with the responseText.');*/
             if (response.status=="Ok")
             {
-				alert('status ok');
-				$('#contactForm').html(response.text);
-				alert('form reload');
-				//$('#results').html(response.message);
+				if (response.response_text != "Empty")
+				{
+					$('#contactForm .img').html(response.response_text);
+				}
+				$('#results').css({color: "blue"});
+				$('#results').html('Information updated');
             }
             else
 			{
-				alert('status fail');
-				$('#contactForm').html(response.text);
-
+                for (var i=0, count=response.errors.length; i<count; i++) {
+                    var error = response.errors[i];
+                    var err = '<div class=errorlist>' + error[1] + '</div>';
+                    $('input[name='+error[0]+']').after(err);
+                }
+				$('#results').html('Fix errors and submit again');
 			}
             
         };
