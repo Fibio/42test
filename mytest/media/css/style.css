@@ -16,16 +16,6 @@ body {
     clear: both;
 	}
 
-#img {
-	width: 340px;
-	height: 385px;
-	float: none;
-	background: #E5E5E5;
-	display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-	}
-
 #login {
     text-align: right;
 	margin: 0 25px;
@@ -33,19 +23,33 @@ body {
 
 #results {
 	color: red;
+	text-align: center;
 	}
+
 
 label {
 	display: block;
-	margin: 0 -5 0 20px;
+	margin: 0 0 0 20px;
 	font-size: 13px;
 	}
 
-.columns div{
+.columns div {
 	float: left; 
 	width: 366px; 
 	padding: 0 10px;
 	margin: 10px 7px;
+	}
+.errorlist {
+	color: red;
+	}
+div.img {
+	width: 340px;
+	height: 385px;
+	float: none;
+	background: #E5E5E5;
+	display: table-cell;
+    text-align: center;
+    vertical-align: middle;
 	}
 
 a:link, a:visited {
