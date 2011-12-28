@@ -26,10 +26,6 @@ class ProcessorsTestCase(TestCase):
     def test_main_content(self):
         response = self.client.get(reverse('home'))
         self.assertContains(response, str(settings.ROOT_URLCONF))
-    
-    def test_all_settings(self):
-        response = self.client.get(reverse('home'))
-        self.assertEquals(response.context['settings'], settings)
 
     def test_all_settings(self):
         response = self.client.get(reverse('home'))
@@ -59,6 +55,12 @@ class LoginEditTestCase(TestCase):
         self.user.is_superuser = True
         self.user.save()
         self.assertTrue(self.client.login(username=self.username, password=self.pw))
+        self.post_data = {'first_name': 'John',
+                          'last_name': 'Doe',
+                          'birth_date': '2011-11-11',
+                          'bio': 'some bio',
+                          'email': 'john_doe@gmail.com',
+                          'skype': 'john_doe'}
 
     def test_login_main(self):
         response = self.client.get(reverse('home'))
@@ -74,14 +76,19 @@ class LoginEditTestCase(TestCase):
 
     def test_change_info(self):
         self.assertTrue(self.client.login(username=self.username, password=self.pw))
-        self.post_data = {'first_name': 'John',
-                          'last_name': 'Doe',
-                          'birth_date': '2011-11-11',
-                          'bio': 'some bio',
-                          'email': 'john_doe@gmail.com',
-                          'skype': 'john_doe'}
-        self.client.post(reverse('edit'), self.post_data)
+        self.client.post(reverse('edit'), self.post_data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         person = Person.objects.get(pk=1)
         self.assertEqual(person.first_name, 'John')
         self.assertEqual(person.last_name, 'Doe')
         self.assertEqual(person.skype, 'john_doe')
+
+    def test_calendar_widget(self):
+        js = 'calendar.js"></script>'
+        response = self.client.get(reverse('edit'))
+        self.assertContains(response, js, count=1)
+
+    def test_error_views(self):
+        self.post_data['birth_date'] = ''
+        response = self.client.post(reverse('edit'), self.post_data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertContains(response, 'Fail', count=1)
+        self.assertContains(response, '"birth_date", "This field is required."', count=1)

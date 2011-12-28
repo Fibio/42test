@@ -16,7 +16,33 @@ body {
     clear: both;
 	}
 
-#img {
+#login {
+    text-align: right;
+	margin: 0 25px;
+	}
+
+#results {
+	color: red;
+	text-align: center;
+	}
+
+
+label {
+	display: block;
+	margin: 0 0 0 20px;
+	font-size: 13px;
+	}
+
+.columns div {
+	float: left; 
+	width: 366px; 
+	padding: 0 10px;
+	margin: 10px 7px;
+	}
+.errorlist {
+	color: red;
+	}
+div.img {
 	width: 340px;
 	height: 385px;
 	float: none;
@@ -26,19 +52,11 @@ body {
     vertical-align: middle;
 	}
 
-#login {
-    text-align: right;
-	margin: 0 25px;
+a:link, a:visited {
+    color: #5b80b2;
+    text-decoration: none;
 	}
 
-label {
-	display: block;
-	margin: 0 -5 0 20px;
-	}
-
-.columns div{
-	float: left; 
-	width: 355px; 
-	padding: 0 10px;
-	margin: 10px 7px;
+.datetimeshortcuts a {
+	font-size: 11px;
 	}

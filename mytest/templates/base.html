@@ -4,11 +4,7 @@
 <html lang="en">
 <head>
     <title>{% block title %}{% endblock %}</title>
-    {% block css %}
-    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/style.css" />
-    {% endblock %}
-    {% block scripts %}
-    {% endblock %}
+    {% block css %}<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/style.css" /></link>{% endblock %}
 </head>
 <body>
 <div id="main">
