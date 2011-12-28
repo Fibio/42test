@@ -92,3 +92,9 @@ class LoginEditTestCase(TestCase):
         response = self.client.post(reverse('edit'), self.post_data, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertContains(response, 'Fail', count=1)
         self.assertContains(response, '"birth_date", "This field is required."', count=1)
+
+    def test_reverse_form(self):
+        response = str(self.client.get(reverse('reverse')))
+        bio = response.split().index('id="id_bio"')
+        first_name = response.split().index('id="id_first_name"')
+        self.assertTrue(bio < first_name)

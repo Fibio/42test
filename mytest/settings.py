@@ -105,6 +105,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.contrib.messages.context_processors.messages',
     'mytest.context_processors.project_settings',
+    'mytest.context_processors.this_url_cp',
 )
 
 MIDDLEWARE_CLASSES = (

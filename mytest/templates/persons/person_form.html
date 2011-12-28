@@ -1,17 +1,33 @@
 <div class="columns">
 	<div>
-		{% for field in form %}
-        	{% if field.label = 'Photo' %}
-				<label>{{ field.label }}: <div class='img'>{{ field }}</div></label>
-			{% else %}
-				<p><label>{{ field.label }}: {{ field }}</label></p>
-			{% endif %}
-			{% if field.errors %}
-            	<font color="red">{{ field.errors }}</font>
-            {% endif %}
-			{% if forloop.counter = 4 %} 
-		    	</div><div>
-		    {% endif %}
-		{% endfor %}
+		{% if this_url == '/reverse/' %}
+			{% for field in form reversed %}
+        		{% if field.label = 'Photo' %}
+					<p><label>{{ field.label }}: <span class='img'>{{ field }}</span></label></p>
+				{% else %}
+					<p><label>{{ field.label }}: {{ field }}</label></p>
+				{% endif %}
+				{% if field.errors %}
+            		<font color="red">{{ field.errors }}</font>
+            	{% endif %}
+				{% if forloop.counter = 5 %} 
+		    		</div><div>
+		    	{% endif %}
+		    {% endfor %}	
+		{% else %}
+			{% for field in form %}
+        		{% if field.label = 'Photo' %}
+					<p><label>{{ field.label }}: <span class='img'>{{ field }}</span></label></p>
+				{% else %}
+					<p><label>{{ field.label }}: {{ field }}</label></p>
+				{% endif %}
+				{% if field.errors %}
+            		<font color="red">{{ field.errors }}</font>
+            	{% endif %}
+				{% if forloop.counter = 4 %} 
+		    		</div><div>
+		    	{% endif %}
+			{% endfor %}
+		{% endif %}
 	</div>
  </div>
