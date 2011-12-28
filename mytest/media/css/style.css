@@ -38,11 +38,12 @@ label {
 	width: 366px; 
 	padding: 0 10px;
 	margin: 10px 7px;
+	vertical-align: top;
 	}
 .errorlist {
 	color: red;
 	}
-div.img {
+span.img {
 	width: 340px;
 	height: 385px;
 	float: none;
