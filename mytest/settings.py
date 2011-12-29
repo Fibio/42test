@@ -135,6 +135,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'mytest.persons',
+    'mytest.utils',
     )
 
 LOGIN_REDIRECT_URL = "/edit/"

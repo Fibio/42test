@@ -8,7 +8,6 @@
     		window.__admin_media_prefix__ = "{{ MEDIA_URL }}";
 		</script>
 		{{ form.media }}
-		{{ edit }}
 	{% endif %}
 {% endblock %}
 
@@ -16,13 +15,15 @@
 
 {% block login %}
       <div id="login">
+        {% load custom_tags %}
         {% if user.is_authenticated %}
             {{ user.username }} you can <a href="{% url auth_logout %}">logout</a>
             {% if not edit %} 
-            	or <a href="{% url edit %}">edit profile</a>
+            	or <a href="{% url edit %}">edit person info</a>
             {% else %}
             	or return to  <a href="{% url home %}">main page</a>
             {% endif %}
+            	{% edit_link user %}
         {% else %}
             <a href="{% url auth_login %}">Login</a>
         {% endif %}

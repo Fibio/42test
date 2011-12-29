@@ -7,6 +7,10 @@ run:
 test_persons:
 	python mytest/manage.py test persons
 
+.PHONY: test_utils
+test_utils:
+	python mytest/manage.py test utils
+
 .PHONY: test
 test:
 	python mytest/manage.py test
