@@ -1,19 +1,26 @@
+MANAGE=django-admin.py
+PROJECT=mytest
+
 .PHONY: run
 run:
-	python mytest/manage.py syncdb
-	python mytest/manage.py runserver 0.0.0.0:8000
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).settings $(MANAGE) syncdb
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).settings $(MANAGE) runserver 0.0.0.0:8000
 
 .PHONY: test_persons
 test_persons:
-	python mytest/manage.py test persons
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).settings $(MANAGE) test persons
 
 .PHONY: test_utils
 test_utils:
-	python mytest/manage.py test utils
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).settings $(MANAGE) test utils
 
 .PHONY: test
 test:
-	python mytest/manage.py test
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).settings $(MANAGE) test
+
+.PHONY: model_info
+model_info:
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).settings $(MANAGE) model_info
 
 fixtures:
-	python mytest/manage.py dumpdata persons --indent 3 > initial_data.json
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).settings $(MANAGE) dumpdata persons --indent 3 > initial_data.json

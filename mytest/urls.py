@@ -6,7 +6,7 @@ admin.autodiscover()
 media = {'document_root': settings.MEDIA_ROOT}
 
 urlpatterns = patterns('',
-    url(r'^', include('persons.urls')),
+    url(r'^', include('mytest.persons.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
 

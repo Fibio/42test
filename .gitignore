@@ -3,6 +3,7 @@ env/*
 
 # compiled source #
 *.pyc
+*.dat
 
 # databases #
 *.sqlite
