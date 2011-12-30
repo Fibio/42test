@@ -32,7 +32,6 @@
 {% block content %}
     {% if edit %}
         <form id="contactForm" method="POST" action="{% url edit %}" enctype="multipart/form-data">
-        {% csrf_token %}
     {% endif %}
 	{% include "persons/person_form.html" %}
  	{% if edit %}
