@@ -52,6 +52,18 @@ span.img {
     text-align: center;
     vertical-align: middle;
 	}
+.errorlist {
+	color: red;
+	}
+div.img {
+	width: 340px;
+	height: 385px;
+	float: none;
+	background: #E5E5E5;
+	display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+	}
 
 a:link, a:visited {
     color: #5b80b2;
