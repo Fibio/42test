@@ -1,5 +1,5 @@
 from django.contrib import admin
-from mytest.persons.models import Person, RequestInfo
+from mytest.persons.models import Person, RequestInfo, ModelEntry
 
 
 class PersonAdmin(admin.ModelAdmin):
@@ -11,5 +11,10 @@ class RequestInfoAdmin(admin.ModelAdmin):
     ordering = ('time',)
 
 
+class ModelEntryAdmin(admin.ModelAdmin):
+    ordering = ('action_time',)
+
+
 admin.site.register(Person, PersonAdmin)
 admin.site.register(RequestInfo, RequestInfoAdmin)
+admin.site.register(ModelEntry, ModelEntryAdmin)
