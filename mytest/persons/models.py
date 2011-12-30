@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.contenttypes.models import ContentType
+from django.db.models.signals import post_save, post_delete
 
 
 class Person(models.Model):
@@ -36,3 +38,40 @@ class RequestInfo(models.Model):
     class Meta:
         db_table = 'request_info'
         verbose_name_plural = 'request_information'
+
+
+EVENT_CHOICES = {
+    True: 'created',
+    False: 'edited',
+    None: 'deleted'}
+
+
+MODEL_IGNORE = ['ModelEntry', 'Requestinfo', 'Message', 'Session',
+                'LogEntry', 'Permission', 'ContentType', 'Site']
+
+
+class ModelEntry(models.Model):
+    action_time = models.DateTimeField(auto_now=True)
+    event = models.CharField(max_length=6)
+    content_type = models.ForeignKey(ContentType, blank=True, null=True)
+    model_cls = models.CharField(max_length=255)
+    object_id = models.IntegerField()
+
+    def __unicode__(self):
+        return u'%s instance was %s at %s' % (self.model_cls, self.event, self.action_time)
+
+    class Meta:
+        db_table = 'model_entry'
+        verbose_name_plural = 'model_entries'
+
+
+def event(sender, instance, **kwargs):
+    if sender.__name__ not in MODEL_IGNORE:
+        ModelEntry.objects.create(event=EVENT_CHOICES[kwargs.get('created')],
+                                  content_type=ContentType.objects.get_for_model(sender),
+                                  model_cls=sender.__name__,
+                                  object_id=instance.id)
+
+
+post_save.connect(event)
+post_delete.connect(event)
