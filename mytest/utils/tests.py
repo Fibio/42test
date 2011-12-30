@@ -68,11 +68,11 @@ class SignalTestCase(TestCase):
         self.entry = ModelEntry.objects.all().order_by('-action_time')
         self.count = self.entry.count()
 
-    def __compare(self, instance, add, event, old_id=None):
+    def __compare(self, instance, add, event, last_id=None):
         new_count = self.entry.count()
         self.assertEqual(self.count + add, new_count)
         self.assertEqual(self.entry[0].model_cls, instance.__class__.__name__)
-        self.assertEqual(self.entry[0].object_id, instance.id or old_id)
+        self.assertEqual(self.entry[0].object_id, instance.id or last_id)
         self.assertEqual(self.entry[0].event, event)
 
     def test_user_signal(self):
@@ -82,6 +82,6 @@ class SignalTestCase(TestCase):
         user.is_superuser = True
         user.save()
         self.__compare(user, 2, 'edited')
-        old_id = user.id
+        last_id = user.id
         user.delete()
-        self.__compare(user, 3, 'deleted', old_id)
+        self.__compare(user, 3, 'deleted', last_id)
