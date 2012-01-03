@@ -16,6 +16,7 @@ test_utils:
 
 .PHONY: test
 test:
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).settings $(MANAGE) syncdb --noinput
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).settings $(MANAGE) test
 
 .PHONY: model_info

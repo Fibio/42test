@@ -60,5 +60,6 @@ class CommandTestCase(TestCase):
     def test_bash(self):
         subprocess.call('./bashcommand.sh', shell=True, stdout=subprocess.PIPE)
         f = open('%s.dat' % datetime.date.today(), 'r')
-        self.assertEqual(self.__find_match(f, 'Error' + self.pattern), self.models)
+        count = len(self.__find_match(f, 'Error' + self.pattern))
+        self.assertEqual(count, len(self.models))
         subprocess.os.remove('%s.dat' % datetime.date.today())
