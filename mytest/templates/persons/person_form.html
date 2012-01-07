@@ -29,18 +29,5 @@
 		    	{% endif %}
 			{% endfor %}
 		{% endif %}
-		{% for field in form %}
-        	{% if field.label = 'Photo' %}
-				<label>{{ field.label }}: <div class='img'>{{ field }}</div></label>
-			{% else %}
-				<p><label>{{ field.label }}: {{ field }}</label></p>
-			{% endif %}
-			{% if field.errors %}
-            	<font color="red">{{ field.errors }}</font>
-            {% endif %}
-			{% if forloop.counter = 4 %} 
-		    	</div><div>
-		    {% endif %}
-		{% endfor %}
 	</div>
  </div>
