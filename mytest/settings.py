@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'mytest.persons',
     'mytest.utils',
+    'south'
     )
 
 LOGIN_REDIRECT_URL = "/edit/"
@@ -145,6 +146,12 @@ LOGIN_REDIRECT_URL = "/edit/"
 # the site admins on every HTTP 500 error.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+
+PRIORITY = 0
+
+SOUTH_TESTS_MIGRATE = False
+
+SKIP_SOUTH_TESTS = True
 
 LOGGING = {
     'version': 1,
