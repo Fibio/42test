@@ -43,6 +43,8 @@ class RequestInfoTestCase(TestCase):
             response = self.client.get(reverse('requests'))
         requests = RequestInfo.objects.all().order_by('time')[:10]
         self.assertEqual(list(response.context['requests']), list(requests))
+        for request in requests:
+            self.assertEqual(request._priority, settings.PRIORITY)
 
 
 class LoginEditTestCase(TestCase):
