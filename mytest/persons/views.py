@@ -57,6 +57,6 @@ def person_detail(request, edit=False, person_id=1):
 def request_list(request):
 
     """ Display the first ten request in bd """
-
     requests = RequestInfo.objects.all().order_by('time')[:10]
-    return direct_to_template(request, 'persons/request_list.html', {'requests': requests})
+    requests_sort = sorted(requests, key=lambda requests: requests.priority, reverse=True)
+    return direct_to_template(request, 'persons/request_list.html', {'requests': requests_sort})

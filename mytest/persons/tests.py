@@ -44,7 +44,7 @@ class RequestInfoTestCase(TestCase):
         requests = RequestInfo.objects.all().order_by('time')[:10]
         self.assertEqual(list(response.context['requests']), list(requests))
         for request in requests:
-            self.assertEqual(request._priority, settings.PRIORITY)
+            self.assertEqual(request.priority, settings.PRIORITY)
 
 
 class LoginEditTestCase(TestCase):
