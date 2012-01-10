@@ -22,9 +22,6 @@ class Person(models.Model):
         db_table = 'person'
 
 
-REQUEST_CHOICE = {1: True, 0: False}
-
-
 class RequestInfo(models.Model):
     user = models.CharField(max_length=50)
     time = models.DateTimeField(auto_now=True)
@@ -35,17 +32,13 @@ class RequestInfo(models.Model):
     lang = models.CharField(max_length=20)
     http_accept_charset = models.CharField(max_length=50)
     http_cookie = models.CharField(max_length=100)
-    _priority = models.IntegerField(max_length=1, default=settings.PRIORITY)
+    priority = models.IntegerField(default=settings.PRIORITY)
 
     def __unicode__(self):
-        return u'Request from %s method - %s, at %s, prioriti is %s' % (self.user,
+        return u'Request from %s method - %s, at %s, priority is %s' % (self.user,
                                                                         self.request_method,
                                                                         self.time,
                                                                         self.priority)
-
-    @property
-    def priority(self):
-        return REQUEST_CHOICE[self._priority]
 
     class Meta:
         db_table = 'request_info'
