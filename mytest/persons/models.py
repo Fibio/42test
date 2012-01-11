@@ -61,7 +61,6 @@ class ModelEntry(models.Model):
     content_type = models.ForeignKey(ContentType, blank=True, null=True)
     object_id = models.IntegerField()
 
-
     def __unicode__(self):
         return u'%s instance was %s at %s' % (self.content_type.name, self.event, self.action_time)
 
