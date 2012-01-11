@@ -9,14 +9,26 @@ class PersonTestCase(TestCase):
 
     """ Test for main page about person information"""
 
-    def test_person_exists(self):
-        person = Person.objects.get(pk=1)
-        self.assertIsNotNone(person)
+    def setUp(self):
+        self.person = Person.objects.all()[0]
 
-    def test_main_content(self):
+    def test_person_exists(self):
+        self.assertIsNotNone(self.person)
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, str(Person.objects.get(pk=1).first_name))
+        self.assertContains(response, str(Person.objects.get(pk=self.person.id).first_name))
+
+    def test_person_change(self):
+        self.new_person = Person.objects.create(first_name='John',
+                                                last_name='Doe',
+                                                birth_date='2011-11-11',
+                                                bio='some bio',
+                                                mail='john_doe@gmail.com',
+                                                skype='john_doe')
+        Person.objects.get(pk=self.person.id).delete()
+        response = self.client.get(reverse('home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, str(Person.objects.get(pk=self.new_person.id).first_name))
 
 
 class ProcessorsTestCase(TestCase):

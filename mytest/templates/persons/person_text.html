@@ -1,0 +1,14 @@
+<div class="columns">
+	<div>
+			{% for field in form %}
+        		{% if field.label = 'Photo' %}
+					<p><label>{{ field.label }}: <span class='img'>{{ field }}</span></label></p>
+				{% else %}
+					<p><label>{{ field.label }}:   <b>{{ field.value }}</b></label></p>
+				{% endif %}
+				{% if forloop.counter = 4 %} 
+		    		</div><div>
+		    	{% endif %}
+			{% endfor %}
+	</div>
+ </div>
