@@ -40,6 +40,12 @@ label {
 	margin: 10px 7px;
 	vertical-align: top;
 	}
+
+.columns b {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11pt;
+	}
+
 .errorlist {
 	color: red;
 	}

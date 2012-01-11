@@ -34,8 +34,10 @@
     {% if edit %}
         <form id="contactForm" method="POST" action="{% url edit %}" enctype="multipart/form-data">
         {% csrf_token %}
-    {% endif %}
 	{% include "persons/person_form.html" %}
+	{% else %}
+	{% include "persons/person_text.html" %}
+	{% endif %}
  	{% if edit %}
  		<div id="results"></div>
         <input type="submit" value="Save">

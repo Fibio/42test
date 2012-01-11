@@ -1,39 +1,18 @@
-from django.shortcuts import get_object_or_404 #, redirect
 from django.views.generic.simple import direct_to_template
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.utils import simplejson
-from PIL import Image
+from mytest.utils import resize
 from mytest.persons.models import Person, RequestInfo
 from mytest.persons.forms import PersonForm
 
 
-def resize(img, output_size=(350, 350)):
-
-    """ Return image size for preview """
-
-    if img and hasattr(img, "url"):
-        image = Image.open(img)
-        m_width = float(output_size[0])
-        m_height = float(output_size[1])
-        w_k = image.size[0] / m_width
-        h_k = image.size[1] / m_height
-        if output_size < image.size:
-            if w_k > h_k:
-                new_size = (m_width, image.size[1] / w_k)
-            else:
-                new_size = (image.size[0] / h_k, m_height)
-        else:
-            new_size = image.size
-        new_size = tuple(map(int, new_size))
-        return new_size
-    return None
-
-
-def person_detail(request, edit=False, person_id=1):
+def person_detail(request, edit=False):
 
     """ Display person information """
 
-    instance = get_object_or_404(Person, pk=person_id)
+    instance = Person.objects.all()[0]
+    if not instance:
+        raise Http404
     img_size = resize(instance.photo)
     form = PersonForm(request.POST or None, request.FILES or None, instance=instance,
                       edit=edit, img_size=img_size)
