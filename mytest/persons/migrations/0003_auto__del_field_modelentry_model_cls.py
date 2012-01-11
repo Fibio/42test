@@ -4,19 +4,18 @@ from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
 
+
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        
+
         # Deleting field 'ModelEntry.model_cls'
         db.delete_column('model_entry', 'model_cls')
 
-
     def backwards(self, orm):
-        
+
         # Adding field 'ModelEntry.model_cls'
         db.add_column('model_entry', 'model_cls', self.gf('django.db.models.fields.CharField')(default='k', max_length=255), keep_default=False)
-
 
     models = {
         'contenttypes.contenttype': {
