@@ -1,14 +1,11 @@
 MANAGE=django-admin.py
 PROJECT=mytest
 SETTINGS=make_settings
+DBNAME=test_db.sqlite
 
-.PHONY: run
-run:
-	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).$(SETTINGS) $(MANAGE) syncdb --all
-	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).$(SETTINGS) $(MANAGE) migrate persons
+
+run: syncdb
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).$(SETTINGS) $(MANAGE) runserver 0.0.0.0:8000
-
-.PHONY: test_persons
 
 .PHONY: test APP=$(APP)
 test:
@@ -25,3 +22,7 @@ fixtures:
 .PHONY: migrate APP=$(APP)
 migrate:
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).$(SETTINGS) $(MANAGE) migrate $(APP)
+
+syncdb:
+	$(if $(wildcard $(DBNAME)), PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).$(SETTINGS) $(MANAGE) migrate, )
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(PROJECT).$(SETTINGS) $(MANAGE) syncdb --all	

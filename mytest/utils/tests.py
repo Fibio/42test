@@ -71,7 +71,6 @@ class SignalTestCase(TestCase):
     def __compare(self, instance, add, event, last_id=None):
         new_count = self.entry.count()
         self.assertEqual(self.count + add, new_count)
-        self.assertEqual(self.entry[0].model_cls, instance.__class__.__name__)
         self.assertEqual(self.entry[0].object_id, instance.id or last_id)
         self.assertEqual(self.entry[0].event, event)
 

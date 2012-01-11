@@ -59,11 +59,11 @@ class ModelEntry(models.Model):
     action_time = models.DateTimeField(auto_now=True)
     event = models.CharField(max_length=6)
     content_type = models.ForeignKey(ContentType, blank=True, null=True)
-    model_cls = models.CharField(max_length=255)
     object_id = models.IntegerField()
 
+
     def __unicode__(self):
-        return u'%s instance was %s at %s' % (self.model_cls, self.event, self.action_time)
+        return u'%s instance was %s at %s' % (self.content_type.name, self.event, self.action_time)
 
     class Meta:
         db_table = 'model_entry'
@@ -74,7 +74,6 @@ def event(sender, instance, **kwargs):
     if sender.__name__ not in MODEL_IGNORE:
         ModelEntry.objects.create(event=EVENT_CHOICES[kwargs.get('created')],
                                   content_type=ContentType.objects.get_for_model(sender),
-                                  model_cls=sender.__name__,
                                   object_id=instance.id)
 
 
