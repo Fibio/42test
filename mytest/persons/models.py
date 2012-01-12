@@ -34,6 +34,11 @@ class RequestInfo(models.Model):
     http_cookie = models.CharField(max_length=100)
     priority = models.IntegerField(default=settings.PRIORITY)
 
+    def change_priority(self, inc):
+        self.priority = self.priority + inc
+        self.save()
+        #return self.priority
+
     def __unicode__(self):
         return u'Request from %s method - %s, at %s, priority is %s' % (self.user,
                                                                         self.request_method,

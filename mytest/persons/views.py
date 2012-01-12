@@ -36,6 +36,19 @@ def person_detail(request, edit=False):
 def request_list(request):
 
     """ Display the first ten request in bd """
+
     requests = RequestInfo.objects.all().order_by('time')[:10]
     requests_sort = sorted(requests, key=lambda requests: requests.priority, reverse=True)
+    if request.method == 'POST':
+        res = {}
+        try:
+            inc = int(request.POST.get('inc'))
+            for req in requests:
+                req.change_priority(inc)
+                res.update({'id_%d' % req.id: req.priority})
+            res.update({'result': 'OK', 'msg': "The priority was changing"})
+        except ValueError:
+            res.update({'result': 'Fail', 'msg': "The priority wasn't changing"})
+        return HttpResponse(simplejson.dumps(res), mimetype='application/javascript')
+
     return direct_to_template(request, 'persons/request_list.html', {'requests': requests_sort})

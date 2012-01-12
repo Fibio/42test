@@ -4,9 +4,7 @@ from mytest.persons.models import Person, RequestInfo, ModelEntry
 
 def change_priority(modeladmin, request, queryset, inc=1):
     for obj in queryset:
-        obj.priority += inc
-        print obj.priority
-        obj.save()
+        obj.change_priority(inc)
 
 
 def increase(modeladmin, request, queryset):
