@@ -1,10 +1,21 @@
 {% extends "base.html" %}
 
 {% block title %}The first http request:{% endblock %}
+{% block css %}
+	{{ block.super }}
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/change_priority.js"></script>
+{% endblock %}
 {% block caption %}<h1>42 Coffee Cups Test Assignment</h1>{% endblock %}
 {% block content %}
+<div id="but">
+	<button id="inc"> increase</button>
+	<button id="dec"> decrease</button>
+</div>
+<hr>
 			{% for request in requests %}
 				on {{ request.time }} request from {{ request.user }} request method {{ request.request_method }} 
-				priority - {{ request.priority }}<br>
+				priority - <span id="id_{{ request.id }}">{{ request.priority }}</span><br>
 			{% endfor %}
+<div id="results"></div>
 {% endblock %}

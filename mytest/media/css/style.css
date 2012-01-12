@@ -26,6 +26,9 @@ body {
 	text-align: center;
 	}
 
+#but {
+	text-align: right;
+	}
 
 label {
 	display: block;
@@ -61,6 +64,7 @@ span.img {
 .errorlist {
 	color: red;
 	}
+
 div.img {
 	width: 340px;
 	height: 385px;
