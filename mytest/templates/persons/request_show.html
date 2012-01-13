@@ -10,13 +10,15 @@
 {% endblock %}
 {% block caption %}<h1>42 Coffee Cups Test Assignment</h1>{% endblock %}
 {% block content %}
-<div id="but">
-	<label>new priority: <input id="p_val" type="text" maxlength="5" size="5">
-	<button value='1'> increase</button>
-	<button value='-1'> decrease</button>
-	<button value='0'> set</button></label>
-</div>
+{% if user.is_authenticated %}
+	<div id="but">
+		<label>new priority: <input id="p_val" type="text" maxlength="5" size="5">
+		<button value='1'> increase</button>
+		<button value='-1'> decrease</button>
+		<button value='0'> set</button></label>
+	</div>
 <hr>
+{% endif %}
 {% include "persons/request_list.html" %}
 <div id="results"></div>
 {% endblock %}

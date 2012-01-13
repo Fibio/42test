@@ -13,21 +13,13 @@
 
 {% block caption %}<h1>42 Coffee Cups Test Assignment</h1>{% endblock %}
 
-{% block login %}
-      <div id="login">
-        {% load custom_tags %}
-        {% if user.is_authenticated %}
-            {{ user.username }} you can <a href="{% url auth_logout %}">logout</a>
-            {% if not edit %} 
-            	or <a href="{% url edit %}">edit person info</a>
-            {% else %}
-            	or return to  <a href="{% url home %}">main page</a>
-            {% endif %}
-            	{% edit_link user %}
+{% block extralogin %}
+<br>
+        {% if not edit %} 
+        	or <a href="{% url edit %}">edit person info</a>
         {% else %}
-            <a href="{% url auth_login %}">Login</a>
+        	or return to  <a href="{% url home %}">main page</a>
         {% endif %}
-      </div>
 {% endblock %}
 
 {% block content %}

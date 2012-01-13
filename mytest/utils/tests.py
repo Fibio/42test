@@ -25,7 +25,7 @@ class TemplateTagsTestCase(TestCase):
                        "{% else %}"
                        "{% url auth_login %}"
                        "{% endif %}")#.render(Context({'user': self.user}))
-        self.tag_out = u'<br>also you can <a href="/admin/auth/user/1/">edit SuperPuper profile</a>'
+        self.tag_out = u'or <a href="/admin/auth/user/1/">edit SuperPuper profile</a>'
 
     def test_edit_link_auth(self):
         self.assertEqual(self.template.render(Context({'user': self.user})), self.tag_out)

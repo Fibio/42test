@@ -104,6 +104,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'django.contrib.messages.context_processors.messages',
+    'django.core.context_processors.request',
     'mytest.context_processors.project_settings',
     'mytest.context_processors.this_url_cp',
 )
@@ -140,7 +141,6 @@ INSTALLED_APPS = (
     'south'
     )
 
-LOGIN_REDIRECT_URL = "/edit/"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

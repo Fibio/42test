@@ -9,7 +9,18 @@
 <body>
 <div id="main">
     {% block caption %}{% endblock %}
-    {% block login %}{% endblock %}
+    {% block login %}
+    	<div id="login">
+        	{% load custom_tags %}
+        	{% if user.is_authenticated %}
+            	{{ user.username }} you can <a href="{% url auth_logout %}">logout</a>
+            	{% edit_link user %}
+        	{% else %}
+    			<a href="{% url django.contrib.auth.views.login %}?next={{request.path}}">Login</a>
+    		{% endif %}
+    		{% block extralogin %}{% endblock %}
+    	</div>
+    {% endblock %}
     {% block content %}{% endblock %}
     {% block footer %}{% endblock %}
 </div>
