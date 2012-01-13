@@ -1,5 +1,6 @@
 from django import forms
 from mytest.persons.models import Person
+import django_tables as tables
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
 from django.conf import settings
@@ -87,3 +88,15 @@ class PersonForm(forms.ModelForm):
             'other_contacts': forms.widgets.Textarea(attrs={'cols': 45, 'rows': 10}),
             }
         labels = {'birth_date': 'Date of birth'}
+
+
+class RequestTable(tables.MemoryTable):
+
+    check = tables.Column(data='id')
+    id = tables.Column()
+    user = tables.Column()
+    time = tables.Column()
+    request_method = tables.Column()
+    server_protocol = tables.Column()
+    lang = tables.Column()
+    priority = tables.Column()

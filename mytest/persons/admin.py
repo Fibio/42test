@@ -1,20 +1,20 @@
 from django.contrib import admin
 from mytest.persons.models import Person, RequestInfo, ModelEntry
+from django.db.models import F
 
 
-def change_priority(modeladmin, request, queryset, inc=1):
-    for obj in queryset:
-        obj.change_priority(inc)
+def change_priority(queryset, inc=1):
+    queryset.update(priority=F('priority') + inc)
 
 
 def increase(modeladmin, request, queryset):
-    change_priority(modeladmin, request, queryset)
+    change_priority(queryset)
 
 increase.short_description = "Increase priority of selected requests"
 
 
 def decrease(modeladmin, request, queryset):
-    change_priority(modeladmin, request, queryset, inc=-1)
+    change_priority(queryset, inc=-1)
 
 decrease.short_description = "Decrease priority of selected requests"
 

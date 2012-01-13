@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}The first http request:{% endblock %}
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/table.css" /></link>
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.tablesorter.min.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/change_priority.js"></script>
+{% endblock %}
+{% block caption %}<h1>42 Coffee Cups Test Assignment</h1>{% endblock %}
+{% block content %}
+<div id="but">
+	<label>new priority: <input id="p_val" type="text" maxlength="5" size="5">
+	<button value='1'> increase</button>
+	<button value='-1'> decrease</button>
+	<button value='0'> set</button></label>
+</div>
+<hr>
+{% include "persons/request_list.html" %}
+<div id="results"></div>
+{% endblock %}

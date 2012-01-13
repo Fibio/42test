@@ -53,10 +53,10 @@ class RequestInfoTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         for i in range(15):
             response = self.client.get(reverse('requests'))
-        requests = RequestInfo.objects.all().order_by('time')[:10]
-        self.assertEqual(list(response.context['requests']), list(requests))
+        requests = RequestInfo.table_obj.all()[:10]
+        self.assertEqual(list(response.context['table']._data), list(requests))
         for request in requests:
-            self.assertEqual(request.priority, settings.PRIORITY)
+            self.assertEqual(request['priority'], settings.PRIORITY)
 
 
 class LoginEditTestCase(TestCase):

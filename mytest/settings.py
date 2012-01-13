@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django_tables',
     'mytest.persons',
     'mytest.utils',
     'south'
