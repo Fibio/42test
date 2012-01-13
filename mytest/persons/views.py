@@ -3,6 +3,9 @@ from django.http import HttpResponse, Http404
 from django.utils import simplejson
 from mytest.utils import resize
 from django.db.models import F
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from mytest.persons.models import Person, RequestInfo
 from mytest.persons.forms import PersonForm, RequestTable
 
@@ -38,7 +41,7 @@ def request_list(request):
 
     """ Display the first ten request in bd """
 
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated():
         res = {}
         try:
             new_p = int(request.POST.get('new_p'))

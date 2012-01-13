@@ -14,7 +14,7 @@ class BuildLinkNode(template.Node):
         try:
             obj = self.object.resolve(context)
             url = reverse('admin:%s_%s_change' % (obj._meta.app_label, obj._meta.module_name), args=(obj.pk,))
-            return u'<br>also you can <a href="%s">edit %s profile</a>' % (url, obj.__unicode__())
+            return u'or <a href="%s">edit %s profile</a>' % (url, obj.__unicode__())
         except:
             return ''
 
