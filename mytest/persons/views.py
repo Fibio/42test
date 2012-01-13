@@ -2,8 +2,9 @@ from django.views.generic.simple import direct_to_template
 from django.http import HttpResponse, Http404
 from django.utils import simplejson
 from mytest.utils import resize
+from django.db.models import F
 from mytest.persons.models import Person, RequestInfo
-from mytest.persons.forms import PersonForm
+from mytest.persons.forms import PersonForm, RequestTable
 
 
 def person_detail(request, edit=False):
@@ -37,18 +38,24 @@ def request_list(request):
 
     """ Display the first ten request in bd """
 
-    requests = RequestInfo.objects.all().order_by('time')[:10]
-    requests_sort = sorted(requests, key=lambda requests: requests.priority, reverse=True)
     if request.method == 'POST':
         res = {}
         try:
-            inc = int(request.POST.get('inc'))
-            for req in requests:
-                req.change_priority(inc)
-                res.update({'id_%d' % req.id: req.priority})
-            res.update({'result': 'OK', 'msg': "The priority was changing"})
+            new_p = int(request.POST.get('new_p'))
         except ValueError:
-            res.update({'result': 'Fail', 'msg': "The priority wasn't changing"})
+            res.update({'result': 'Fail', 'msg': "New priority value must be a number"})
+        else:
+            try:
+                inc = int(request.POST.get('inc'))
+                check_lst = request.POST.getlist('lst')
+                check_requests = RequestInfo.objects.filter(id__in=check_lst)
+                new_value = {True: F('priority') + inc * new_p, False: new_p}
+                check_requests.update(priority=new_value.get(bool(inc)))#.values('id', 'priority')
+                res = dict(map(lambda x: (x['id'], x['priority']), check_requests.values('id', 'priority')))
+                res.update({'result': 'OK', 'msg': "The priority was changing"})
+            except:
+                res.update({'result': 'Fail', 'msg': "The priority wasn't changing"})
         return HttpResponse(simplejson.dumps(res), mimetype='application/javascript')
-
-    return direct_to_template(request, 'persons/request_list.html', {'requests': requests_sort})
+    requests = RequestInfo.table_obj.all()[:10]
+    table = RequestTable(sorted(requests, key=lambda requests: requests['priority'], reverse=True))
+    return direct_to_template(request, 'persons/request_show.html', {'table': table})

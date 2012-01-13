@@ -22,6 +22,18 @@ class Person(models.Model):
         db_table = 'person'
 
 
+REQUEST_TABLE_FIELDS = ('id', 'user', 'time', 'request_method', 'server_protocol', 'lang', 'priority')
+
+
+class ReqTableManager(models.Manager):
+
+    """Return for data table of requests"""
+
+    def get_query_set(self):
+        requests = super(ReqTableManager, self).get_query_set().order_by('time').values(*REQUEST_TABLE_FIELDS)
+        return requests
+
+
 class RequestInfo(models.Model):
     user = models.CharField(max_length=50)
     time = models.DateTimeField(auto_now=True)
@@ -33,11 +45,13 @@ class RequestInfo(models.Model):
     http_accept_charset = models.CharField(max_length=50)
     http_cookie = models.CharField(max_length=100)
     priority = models.IntegerField(default=settings.PRIORITY)
+    objects = models.Manager()
+    table_obj = ReqTableManager()
 
-    def change_priority(self, inc):
+    '''def change_priority(self, inc):
         self.priority = self.priority + inc
         self.save()
-        #return self.priority
+        #return self.priority'''
 
     def __unicode__(self):
         return u'Request from %s method - %s, at %s, priority is %s' % (self.user,
