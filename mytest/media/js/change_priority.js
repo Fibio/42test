@@ -29,6 +29,7 @@ function PostSuccess(response, sts){
         GetMsg(msg, "blue");
         var check = $('input[type=checkbox]')
         check.attr('checked', false);
+        $("#requests").tablesorter();
     }
     else
     {
