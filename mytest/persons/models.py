@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic, models as content
 from django.db.models.signals import post_save, post_delete
 from django.conf import settings
 
@@ -57,9 +57,10 @@ MODEL_IGNORE = ['ModelEntry', 'Requestinfo', 'Message', 'Session',
 
 class ModelEntry(models.Model):
     action_time = models.DateTimeField(auto_now=True)
-    event = models.CharField(max_length=6)
-    content_type = models.ForeignKey(ContentType, blank=True, null=True)
+    event = models.CharField(max_length=7)
+    content_type = models.ForeignKey(content.ContentType, blank=True, null=True)
     object_id = models.IntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     def __unicode__(self):
         return u'%s instance was %s at %s' % (self.content_type.name, self.event, self.action_time)
@@ -72,7 +73,7 @@ class ModelEntry(models.Model):
 def event(sender, instance, **kwargs):
     if sender.__name__ not in MODEL_IGNORE:
         ModelEntry.objects.create(event=EVENT_CHOICES[kwargs.get('created')],
-                                  content_type=ContentType.objects.get_for_model(sender),
+                                  content_type=content.ContentType.objects.get_for_model(sender),
                                   object_id=instance.id)
 
 
